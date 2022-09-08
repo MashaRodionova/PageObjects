@@ -1,6 +1,13 @@
 package ru.netology.web.data;
 
+import com.github.javafaker.Faker;
+
+import java.util.Locale;
+
 public class DataHelper {
+    AuthInfo authInfo;
+    VerificationInfo verificationInfo;
+
     public static class AuthInfo{
         private String login;
         private String password;
@@ -22,6 +29,11 @@ public class DataHelper {
         public String getPassword() {
             return password;
         }
+
+        public AuthInfo getAuthInfo(){
+            AuthInfo authInfo = new AuthInfo();
+            return authInfo;
+       }
     }
 
     public static class VerificationInfo{
@@ -41,7 +53,24 @@ public class DataHelper {
     }
 
     public static class CardInfo{
-        private int number;
-        private int count;
+        private String number1;
+        private String number2;
+
+
+        public CardInfo() {
+            this.number1 = "5559 0000 0000 0001";
+            this.number2 = "5559 0000 0000 0002";
+        }
+
+        public String getNumber1() {
+            return number1;
+        }
+
+        public String getNumber2() {
+            return number2;
+        }
+
+
     }
 }
+
