@@ -8,7 +8,7 @@ public class DataHelper {
     AuthInfo authInfo;
     VerificationInfo verificationInfo;
 
-    public static class AuthInfo{
+    public static class AuthInfo {
         private String login;
         private String password;
 
@@ -17,10 +17,6 @@ public class DataHelper {
             this.password = "qwerty123";
         }
 
-        public AuthInfo(String login, String password) {
-            this.login = login;
-            this.password = password;
-        }
 
         public String getLogin() {
             return login;
@@ -30,13 +26,9 @@ public class DataHelper {
             return password;
         }
 
-        public AuthInfo getAuthInfo(){
-            AuthInfo authInfo = new AuthInfo();
-            return authInfo;
-       }
     }
 
-    public static class VerificationInfo{
+    public static class VerificationInfo {
         private String code;
 
         public VerificationInfo() {
@@ -52,7 +44,7 @@ public class DataHelper {
         }
     }
 
-    public static class CardInfo{
+    public static class CardInfo {
         private String number1;
         private String number2;
 

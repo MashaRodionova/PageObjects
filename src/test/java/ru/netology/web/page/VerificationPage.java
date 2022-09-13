@@ -14,7 +14,7 @@ public class VerificationPage {
         codeField.shouldBe(Condition.visible);
     }
 
-    public DashBoardPage validVarify(DataHelper.VerificationInfo verificationInfo){
+    public DashBoardPage validVarify(DataHelper.VerificationInfo verificationInfo) {
         codeField.setValue(verificationInfo.getCode());
         codeButton.click();
         return new DashBoardPage();
