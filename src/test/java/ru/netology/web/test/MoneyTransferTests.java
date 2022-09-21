@@ -21,19 +21,35 @@ public class MoneyTransferTests {
     }
 
     @Test
-    void test1() {
+    void shouldReplenishFirstCard() {
         LoginPage loginPage = new LoginPage();
-        VerificationPage verificationPage = loginPage.validLogin(new DataHelper.AuthInfo());
-        DashBoardPage dashBoardPage1 = verificationPage.validVarify(new DataHelper.VerificationInfo());
-        int firstBalanceCard1 = dashBoardPage1.getCardBalance(dashBoardPage1.getCard1());
-        int firstBalanceCard2 = dashBoardPage1.getCardBalance(dashBoardPage1.getCard2());
+        VerificationPage verificationPage = loginPage.validLogin(DataHelper.getAuthInfo());
+        DashBoardPage dashBoardPage1 = verificationPage.validVarify(DataHelper.getCode(DataHelper.getAuthInfo()));
+        int firstBalanceCard1 = dashBoardPage1.getFirstCardBalance();
+        int firstBalanceCard2 = dashBoardPage1.getSecondCardBalance();
         MoneyTransferPage moneyTransferPage = dashBoardPage1.replenishCard1();
-        DashBoardPage dashBoardPage2 = moneyTransferPage.moneyTransfer("300", new DataHelper.CardInfo().getNumber2());
-        int secondBalanceCard1 = dashBoardPage2.getCardBalance(dashBoardPage2.getCard1());
-        int secondBalanceCard2 = dashBoardPage2.getCardBalance(dashBoardPage2.getCard2());
+        DashBoardPage dashBoardPage2 = moneyTransferPage.moneyTransfer("300", DataHelper.getSecondCard().getNumber());
+        int secondBalanceCard1 = dashBoardPage2.getFirstCardBalance();
+        int secondBalanceCard2 = dashBoardPage2.getSecondCardBalance();
         Assertions.assertEquals(firstBalanceCard1 + 300, secondBalanceCard1);
         Assertions.assertEquals(firstBalanceCard2 - 300, secondBalanceCard2);
-
-
     }
+
+    @Test
+    void shouldReplenishSecondCard() {
+        LoginPage loginPage = new LoginPage();
+        VerificationPage verificationPage = loginPage.validLogin(DataHelper.getAuthInfo());
+        DashBoardPage dashBoardPage1 = verificationPage.validVarify(DataHelper.getCode(DataHelper.getAuthInfo()));
+        int firstBalanceCard1 = dashBoardPage1.getFirstCardBalance();
+        int firstBalanceCard2 = dashBoardPage1.getSecondCardBalance();
+        MoneyTransferPage moneyTransferPage = dashBoardPage1.replenishCard2();
+        DashBoardPage dashBoardPage2 = moneyTransferPage.moneyTransfer("700", DataHelper.getFirstCard().getNumber());
+        int secondBalanceCard1 = dashBoardPage2.getFirstCardBalance();
+        int secondBalanceCard2 = dashBoardPage2.getSecondCardBalance();
+        Assertions.assertEquals(firstBalanceCard1 - 700, secondBalanceCard1);
+        Assertions.assertEquals(firstBalanceCard2 + 700, secondBalanceCard2);
+    }
+
+
+
 }
