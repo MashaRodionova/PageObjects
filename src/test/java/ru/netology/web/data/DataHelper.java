@@ -4,6 +4,8 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
+import java.util.Random;
+
 import static com.codeborne.selenide.Selenide.$;
 
 public class DataHelper {
@@ -28,6 +30,14 @@ public class DataHelper {
 
     public static CardInfo getSecondCard(){
         return new CardInfo("5559 0000 0000 0002", $("[data-test-id='0f3f5c2a-249e-4c3d-8287-09f7a039391d']"));
+    }
+
+    public static int generateValidAmount(int balance){
+       return new Random().nextInt(balance) + 1;
+    }
+
+    public static int generateInvalidAmount(int balance){
+        return Math.abs(balance) + new Random().nextInt(10000);
     }
 
     @Value
