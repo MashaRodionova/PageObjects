@@ -1,12 +1,8 @@
 package ru.netology.web.data;
 
-import com.codeborne.selenide.SelenideElement;
-import lombok.AllArgsConstructor;
 import lombok.Value;
 
 import java.util.Random;
-
-import static com.codeborne.selenide.Selenide.$;
 
 public class DataHelper {
     private DataHelper() {
@@ -24,23 +20,27 @@ public class DataHelper {
         return new VerificationInfo("12345");
     }
 
-   public static CardInfo getFirstCard(){
-      return new CardInfo("5559 0000 0000 0001");
-   }
+    public static VerificationInfo getWrongCode(AuthInfo authInfo) {
+        return new VerificationInfo("54321");
+    }
 
-    public static CardInfo getSecondCard(){
+    public static CardInfo getFirstCard() {
+        return new CardInfo("5559 0000 0000 0001");
+    }
+
+    public static CardInfo getSecondCard() {
         return new CardInfo("5559 0000 0000 0002");
     }
 
-    public static CardInfo getInvalidCard(){
+    public static CardInfo getInvalidCard() {
         return new CardInfo("5559 0000 0000 3333");
     }
 
-    public static int generateValidAmount(int balance){
-       return new Random().nextInt(Math.abs(balance)) + 1;
+    public static int generateValidAmount(int balance) {
+        return new Random().nextInt(Math.abs(balance)) + 1;
     }
 
-    public static int generateInvalidAmount(int balance){
+    public static int generateInvalidAmount(int balance) {
         return Math.abs(balance) + new Random().nextInt(10000);
     }
 
