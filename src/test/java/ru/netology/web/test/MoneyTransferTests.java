@@ -70,5 +70,20 @@ public class MoneyTransferTests {
         Assertions.assertEquals(firstBalanceCard2, secondBalanceCard2);
     }
 
-
+    @Test
+    void shouldThrowErrorAboutEmptyFieldCardNumber() {
+        LoginPage loginPage = new LoginPage();
+        VerificationPage verificationPage = loginPage.validLogin(DataHelper.getAuthInfo());
+        DashBoardPage dashBoardPage = verificationPage.validVarify(DataHelper.getCode(DataHelper.getAuthInfo()));
+        int firstBalanceCard1 = dashBoardPage.getFirstCardBalance();
+        int firstBalanceCard2 = dashBoardPage.getSecondCardBalance();
+        int sum = DataHelper.generateInvalidAmount(firstBalanceCard2);
+        MoneyTransferPage moneyTransferPage = dashBoardPage.replenishCard1();
+        moneyTransferPage.makeTransferWithoutCardNumber(Integer.toString(sum));
+        moneyTransferPage.findErrorMessage("Ошибка! Произошла ошибка");
+        int secondBalanceCard1 = dashBoardPage.getFirstCardBalance();
+        int secondBalanceCard2 = dashBoardPage.getSecondCardBalance();
+        Assertions.assertEquals(firstBalanceCard1, secondBalanceCard1);
+        Assertions.assertEquals(firstBalanceCard2, secondBalanceCard2);
+    }
 }
