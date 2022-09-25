@@ -32,8 +32,12 @@ public class DataHelper {
         return new CardInfo("5559 0000 0000 0002");
     }
 
+    public static CardInfo getInvalidCard(){
+        return new CardInfo("5559 0000 0000 3333");
+    }
+
     public static int generateValidAmount(int balance){
-       return new Random().nextInt(balance) + 1;
+       return new Random().nextInt(Math.abs(balance)) + 1;
     }
 
     public static int generateInvalidAmount(int balance){

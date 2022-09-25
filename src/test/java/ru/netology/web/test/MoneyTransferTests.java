@@ -77,7 +77,7 @@ public class MoneyTransferTests {
         DashBoardPage dashBoardPage = verificationPage.validVarify(DataHelper.getCode(DataHelper.getAuthInfo()));
         int firstBalanceCard1 = dashBoardPage.getFirstCardBalance();
         int firstBalanceCard2 = dashBoardPage.getSecondCardBalance();
-        int sum = DataHelper.generateInvalidAmount(firstBalanceCard2);
+        int sum = DataHelper.generateValidAmount(firstBalanceCard2);
         MoneyTransferPage moneyTransferPage = dashBoardPage.replenishCard1();
         moneyTransferPage.makeTransferWithoutCardNumber(Integer.toString(sum));
         moneyTransferPage.findErrorMessage("Ошибка! Произошла ошибка");
@@ -85,5 +85,57 @@ public class MoneyTransferTests {
         int secondBalanceCard2 = dashBoardPage.getSecondCardBalance();
         Assertions.assertEquals(firstBalanceCard1, secondBalanceCard1);
         Assertions.assertEquals(firstBalanceCard2, secondBalanceCard2);
+    }
+
+    @Test
+    void shouldThrowErrorAboutEmptyFieldSum() {
+        LoginPage loginPage = new LoginPage();
+        VerificationPage verificationPage = loginPage.validLogin(DataHelper.getAuthInfo());
+        DashBoardPage dashBoardPage = verificationPage.validVarify(DataHelper.getCode(DataHelper.getAuthInfo()));
+        int firstBalanceCard1 = dashBoardPage.getFirstCardBalance();
+        int firstBalanceCard2 = dashBoardPage.getSecondCardBalance();
+        MoneyTransferPage moneyTransferPage = dashBoardPage.replenishCard1();
+        moneyTransferPage.makeTransferWithoutSum(DataHelper.getSecondCard().getNumber());
+        moneyTransferPage.findErrorMessage("Ошибка! Укажите сумму перевода");
+//        int secondBalanceCard1 = dashBoardPage.getFirstCardBalance();
+//        int secondBalanceCard2 = dashBoardPage.getSecondCardBalance();
+//        Assertions.assertEquals(firstBalanceCard1, secondBalanceCard1);
+//        Assertions.assertEquals(firstBalanceCard2, secondBalanceCard2);
+    }
+
+    @Test
+    void shouldThrowErrorAboutNullFieldSum() {
+        LoginPage loginPage = new LoginPage();
+        VerificationPage verificationPage = loginPage.validLogin(DataHelper.getAuthInfo());
+        DashBoardPage dashBoardPage = verificationPage.validVarify(DataHelper.getCode(DataHelper.getAuthInfo()));
+        int firstBalanceCard1 = dashBoardPage.getFirstCardBalance();
+        int firstBalanceCard2 = dashBoardPage.getSecondCardBalance();
+        int sum = 0;
+        MoneyTransferPage moneyTransferPage = dashBoardPage.replenishCard1();
+        moneyTransferPage.makeValidTransfer(Integer.toString(sum), DataHelper.getSecondCard().getNumber());
+        moneyTransferPage.findErrorMessage("Ошибка! Укажите сумму перевода");
+//        int secondBalanceCard1 = dashBoardPage.getFirstCardBalance();
+//        int secondBalanceCard2 = dashBoardPage.getSecondCardBalance();
+//        Assertions.assertEquals(firstBalanceCard1, secondBalanceCard1);
+//        Assertions.assertEquals(firstBalanceCard2, secondBalanceCard2);
+
+    }
+
+    @Test
+    void shouldThrowErrorAboutWrongCardNumber() {
+        LoginPage loginPage = new LoginPage();
+        VerificationPage verificationPage = loginPage.validLogin(DataHelper.getAuthInfo());
+        DashBoardPage dashBoardPage1 = verificationPage.validVarify(DataHelper.getCode(DataHelper.getAuthInfo()));
+        int firstBalanceCard1 = dashBoardPage1.getFirstCardBalance();
+        int firstBalanceCard2 = dashBoardPage1.getSecondCardBalance();
+        int sum = DataHelper.generateValidAmount(firstBalanceCard2);
+        MoneyTransferPage moneyTransferPage = dashBoardPage1.replenishCard1();
+        moneyTransferPage.makeValidTransfer(Integer.toString(sum), DataHelper.getInvalidCard().getNumber());
+        moneyTransferPage.findErrorMessage("Ошибка! Произошла ошибка");
+//        int secondBalanceCard1 = dashBoardPage.getFirstCardBalance();
+//        int secondBalanceCard2 = dashBoardPage.getSecondCardBalance();
+//        Assertions.assertEquals(firstBalanceCard1, secondBalanceCard1);
+//        Assertions.assertEquals(firstBalanceCard2, secondBalanceCard2);
+
     }
 }
