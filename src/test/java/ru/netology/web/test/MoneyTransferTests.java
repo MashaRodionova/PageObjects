@@ -62,7 +62,7 @@ public class MoneyTransferTests {
         int sum = DataHelper.generateInvalidAmount(firstBalanceCard2);
         MoneyTransferPage moneyTransferPage = dashBoardPage.replenishCard1();
         moneyTransferPage.makeTransfer(Integer.toString(sum), DataHelper.getSecondCard().getNumber());
-        moneyTransferPage.findErrorMessage("Ошибка! Попытка перевода суммы, превышвющей лимит остатка на карте списания");
+        moneyTransferPage.findErrorMessage("Ошибка! Попытка перевода суммы, превышающей лимит остатка на карте списания");
 
     }
 
@@ -123,7 +123,7 @@ public class MoneyTransferTests {
         LoginPage loginPage = new LoginPage();
         VerificationPage verificationPage = loginPage.validLogin(DataHelper.getAuthInfo());
         verificationPage.invalidVarify(DataHelper.getWrongCode(DataHelper.getAuthInfo()));
-        verificationPage.findErrorMessage("Неверно указан код! Попробуйте ещё раз.");
+        verificationPage.findErrorMessage("Ошибка! Неверно указан код! Попробуйте ещё раз.");
 
     }
 
